@@ -116,7 +116,19 @@ Pointer<T,size>::Pointer(const Pointer &ob){
 
     // TODO: Implement Pointer constructor
     // Lab: Smart Pointer Project Lab
-
+    typename std::list<PtrDetails<T> >::iterator p;
+    p = findPtrInfo(ob.addr);
+    
+    // TODO: Implement copy constructor
+    addr = p->memPtr;
+    // increment ref count
+    p->refcount++;
+    // decide whether it is an array
+    if(p->isArray){
+        isArray = true;
+        arraySize = p->arraySize;
+    }
+    first = false;
 }
 
 // Destructor for Pointer.
@@ -152,7 +164,24 @@ Pointer<T, size> &Pointer<T, size>::operator=(Pointer &rv){
 
     // TODO: Implement operator==
     // LAB: Smart Pointer Project Lab
-
+    typename std::list<PtrDetails<T> >::iterator p;
+    // TODO: Implement assignment
+    // First, decrement the reference count
+    // for the memory currently being pointed to.
+    p = findPtrInfo(addr);
+    p->refcount--;
+    // Then, ncrement the reference count of
+    // the new address.
+    p = findPtrInfo(rv.addr);
+    // increment ref count
+    p->refcount++;
+    // store the address.
+    addr = p->memPtr;
+    if(p->isArray){
+        isArray = true;
+        arraySize = p->arraySize;
+    }
+    return *this;
 }
 
 // A utility function that displays refContainer.
