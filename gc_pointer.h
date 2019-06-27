@@ -137,6 +137,13 @@ Pointer<T, size>::~Pointer(){
     
     // TODO: Implement Pointer destructor
     // Lab: New and Delete Project Lab
+    typename std::list<PtrDetails<T> >::iterator p;
+    p = findPtrInfo(addr);
+
+    if(p->refcount > 0){
+        p->refcount--;
+    }
+    collect();
 }
 
 // Collect garbage. Returns true if at least
@@ -147,7 +154,26 @@ bool Pointer<T, size>::collect(){
     // TODO: Implement collect function
     // LAB: New and Delete Project Lab
     // Note: collect() will be called in the destructor
-    return false;
+    bool memFreed = false;
+    typename std::list<PtrDetails<T> >::iterator p;
+
+    while(p != refContainer.end()){
+        for(p = refContainer.begin(); p != refContainer.end(); p++){
+            if(p->refcount > 0){
+                continue;
+            }
+            refContainer.remove(*p);
+
+            memFreed = true;
+            if(p->isArray){
+                delete[] p->memPtr;
+            } else {
+                delete p->memPtr;
+            }
+            break;
+        }
+    }
+    return memFreed;
 }
 
 // Overload assignment of pointer to Pointer.
