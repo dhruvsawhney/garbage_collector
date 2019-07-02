@@ -25,9 +25,7 @@ array, then arraySize contains its size */
     }
 
     PtrDetails(T* ptr, unsigned arrSize): memPtr(ptr), arraySize(arrSize){
-        if(arraySize > 1){
-            isArray = true;
-        }
+        isArray = (arraySize > 1) ? true : false;
         refcount = 1;
     }
 };

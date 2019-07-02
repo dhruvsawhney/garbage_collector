@@ -102,14 +102,17 @@ bool Pointer<T, size>::first = true;
 template<class T,int size>
 Pointer<T,size>::Pointer(T *t){
     // Register shutdown() as an exit function.
-    if (first)
+    if (first){
         atexit(shutdown);
+    }
     first = false;
 
     // TODO: Implement Pointer constructor
     // Lab: Smart Pointer Project Lab
-
+    PtrDetails<T> newPtr(t, 0);
+    refContainer.push_back(newPtr);
 }
+
 // Copy constructor.
 template< class T, int size>
 Pointer<T,size>::Pointer(const Pointer &ob){
@@ -181,7 +184,9 @@ T *Pointer<T, size>::operator=(T *t){
 
     // TODO: Implement operator==
     // LAB: Smart Pointer Project Lab
-
+    PtrDetails<T> newPtr(t, 0);
+    refContainer.push_back(newPtr);
+    return newPtr.memPtr;
 }
 
 // Overload assignment of Pointer to Pointer.
