@@ -107,8 +107,6 @@ Pointer<T,size>::Pointer(T *t){
     }
     first = false;
 
-    // TODO: Implement Pointer constructor
-    // Lab: Smart Pointer Project Lab
     PtrDetails<T> newPtr(t, 0);
     refContainer.push_back(newPtr);
 }
@@ -117,16 +115,12 @@ Pointer<T,size>::Pointer(T *t){
 template< class T, int size>
 Pointer<T,size>::Pointer(const Pointer &ob){
 
-    // TODO: Implement Pointer constructor
-    // Lab: Smart Pointer Project Lab
     typename std::list<PtrDetails<T> >::iterator p;
     p = findPtrInfo(ob.addr);
     
-    // TODO: Implement copy constructor
     addr = p->memPtr;
-    // increment ref count
     p->refcount++;
-    // decide whether it is an array
+    
     if(p->isArray){
         isArray = true;
         arraySize = p->arraySize;
@@ -137,8 +131,6 @@ Pointer<T,size>::Pointer(const Pointer &ob){
 template <class T, int size>
 Pointer<T, size>::~Pointer(){
     
-    // TODO: Implement Pointer destructor
-    // Lab: New and Delete Project Lab
     typename std::list<PtrDetails<T> >::iterator p;
     p = findPtrInfo(addr);
 
@@ -153,9 +145,6 @@ Pointer<T, size>::~Pointer(){
 template <class T, int size>
 bool Pointer<T, size>::collect(){
 
-    // TODO: Implement collect function
-    // LAB: New and Delete Project Lab
-    // Note: collect() will be called in the destructor
     bool memFreed = false;
     typename std::list<PtrDetails<T> >::iterator p;
 
@@ -182,8 +171,6 @@ bool Pointer<T, size>::collect(){
 template <class T, int size>
 T *Pointer<T, size>::operator=(T *t){
 
-    // TODO: Implement operator==
-    // LAB: Smart Pointer Project Lab
     PtrDetails<T> newPtr(t, 0);
     refContainer.push_back(newPtr);
     return newPtr.memPtr;
@@ -193,21 +180,15 @@ T *Pointer<T, size>::operator=(T *t){
 template <class T, int size>
 Pointer<T, size> &Pointer<T, size>::operator=(Pointer &rv){
 
-    // TODO: Implement operator==
-    // LAB: Smart Pointer Project Lab
     typename std::list<PtrDetails<T> >::iterator p;
-    // TODO: Implement assignment
-    // First, decrement the reference count
-    // for the memory currently being pointed to.
+
     p = findPtrInfo(addr);
     p->refcount--;
-    // Then, ncrement the reference count of
-    // the new address.
+
     p = findPtrInfo(rv.addr);
-    // increment ref count
     p->refcount++;
-    // store the address.
     addr = p->memPtr;
+    
     if(p->isArray){
         isArray = true;
         arraySize = p->arraySize;

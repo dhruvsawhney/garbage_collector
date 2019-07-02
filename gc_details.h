@@ -18,11 +18,7 @@ array, then arraySize contains its size */
     // If this is an array, then size specifies
     // the size of the array.
 
-    // CHECK
-    PtrDetails(void): memPtr(nullptr), arraySize(0), refcount(0), isArray(false)
-    {
-        // TODO: Implement PtrDetails
-    }
+    PtrDetails(void): memPtr(nullptr), arraySize(0), refcount(0), isArray(false) {}
 
     PtrDetails(T* ptr, unsigned arrSize): memPtr(ptr), arraySize(arrSize){
         isArray = (arraySize > 1) ? true : false;
@@ -35,7 +31,7 @@ template <class T>
 bool operator==(const PtrDetails<T> &ob1,
                 const PtrDetails<T> &ob2)
 {
-    // TODO: Implement operator==
+
     return ob1.refcount == ob2.refcount && ob1.memPtr == ob2.memPtr
         && ob1.isArray == ob2.isArray && ob1.arraySize == ob2.arraySize;
 }
