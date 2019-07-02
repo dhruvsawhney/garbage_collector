@@ -109,6 +109,9 @@ Pointer<T,size>::Pointer(T *t){
 
     PtrDetails<T> newPtr(t, 0);
     refContainer.push_back(newPtr);
+
+    addr = t;
+    isArray = false;
 }
 
 // Copy constructor.
@@ -124,6 +127,8 @@ Pointer<T,size>::Pointer(const Pointer &ob){
     if(p->isArray){
         isArray = true;
         arraySize = p->arraySize;
+    } else {
+        isArray = false;
     }
 }
 
@@ -173,7 +178,10 @@ T *Pointer<T, size>::operator=(T *t){
 
     PtrDetails<T> newPtr(t, 0);
     refContainer.push_back(newPtr);
-    return newPtr.memPtr;
+
+    addr = t;
+    isArray = false;
+    return t;
 }
 
 // Overload assignment of Pointer to Pointer.
@@ -187,11 +195,13 @@ Pointer<T, size> &Pointer<T, size>::operator=(Pointer &rv){
 
     p = findPtrInfo(rv.addr);
     p->refcount++;
+
     addr = p->memPtr;
-    
     if(p->isArray){
         isArray = true;
         arraySize = p->arraySize;
+    } else {
+        isArray = false;
     }
     return *this;
 }
