@@ -128,7 +128,6 @@ Pointer<T,size>::Pointer(const Pointer &ob){
         isArray = true;
         arraySize = p->arraySize;
     }
-    first = false;
 }
 
 // Destructor for Pointer.
@@ -184,6 +183,7 @@ T *Pointer<T, size>::operator=(T *t){
     // LAB: Smart Pointer Project Lab
 
 }
+
 // Overload assignment of Pointer to Pointer.
 template <class T, int size>
 Pointer<T, size> &Pointer<T, size>::operator=(Pointer &rv){
