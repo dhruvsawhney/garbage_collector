@@ -11,7 +11,6 @@
 #include <new>
 
 #define INCLUDE_NOTIFICATIONS  __Tester__::notifications = true
-// #define EXCLUDE_NOTIFICATIONS __Tester__::notifications = false
  
 #define FILE_OUTPUT(name) __Tester__::redirect_output(#name)
 #define SCREEN_OUTPUT __Tester__::redirect_output(0)
@@ -133,22 +132,22 @@ namespace __Tester__ {
   }   
 }
 
-void *operator new(std::size_t _size, long line) // throw(std::bad_alloc)
+void *operator new(std::size_t _size, long line)
 {
   return __Tester__::Alloc(line, _size, false);
 }
 
-void* operator new[](std::size_t _size, long line) // throw(std::bad_alloc)
+void* operator new[](std::size_t _size, long line)
 {
   return __Tester__::Alloc(line, _size, true);
 }
 
-void *operator new(std::size_t _size) //   throw(std::bad_alloc)
+void *operator new(std::size_t _size)
 {
   return __Tester__::Alloc(-2, _size, false); 
-}                                                    // Hvata interne alokacije
+}                                                   
 
-void* operator new[](std::size_t _size) // throw(std::bad_alloc)
+void* operator new[](std::size_t _size)
 {
   return __Tester__::Alloc(-2, _size, true);
 }
@@ -161,7 +160,7 @@ void operator delete[](void* ptr) throw() {
   __Tester__::Dealloc(ptr, true);   
 }
 
-void operator delete(void *ptr, long) throw() {    // placement delete!!!
+void operator delete(void *ptr, long) throw() {
   __Tester__::Dealloc(ptr, false);
 }
  

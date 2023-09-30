@@ -1,19 +1,7 @@
-// Exception thrown when an attempt is made to
-// use an Iter that exceeds the range of the
-// underlying object.
-//
 class OutOfRangeExc
 {
 };
 
-
-// An iterator-like class for cycling through arrays
-// that are pointed to by GCPtrs. Iter pointers
-// ** do not ** participate in or affect garbage
-// collection. Thus, an Iter pointing to
-// some object does not prevent that object
-// from being recycled.
-//
 template <class T>
 class Iter
 {

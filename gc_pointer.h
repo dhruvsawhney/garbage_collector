@@ -36,8 +36,6 @@ public:
     // Define an iterator type for Pointer<T>.
     typedef Iter<T> GCiterator;
     // Empty constructor
-    // NOTE: templates aren't able to have prototypes with default arguments
-    // this is why constructor is designed like this:
     Pointer(){
         Pointer(NULL);
     }
