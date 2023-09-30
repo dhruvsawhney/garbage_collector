@@ -4,7 +4,6 @@
 //
 class OutOfRangeExc
 {
-    // Add functionality if needed by your application.
 };
 
 
